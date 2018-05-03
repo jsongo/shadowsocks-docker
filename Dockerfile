@@ -5,7 +5,6 @@ LABEL author="jsongo<jsongo@qq.com>"
 RUN pip install --upgrade pip
 RUN pip install shadowsocks
 COPY ./run.sh /
-RUN apk del pip
 
 EXPOSE 443
 
