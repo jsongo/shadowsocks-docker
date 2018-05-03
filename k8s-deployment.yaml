@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: ss-load-balancer
+    labels:
+        app: shadowsocks
+spec:
+    ports:
+        - port: 443
+    selector:
+        app: shadowsocks
+    type: LoadBalancer
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+    name: shadowsocks
+    labels:
+        app: shadowsocks
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: shadowsocks
+    template:
+        metadata:
+            labels:
+                app: shadowsocks
+        spec:
+            containers:
+                - name: shadowsocks
+                  image: jsongo/ss
+                  env:
+                      - name: PASSWORD
+                        value: xxxx
+                  ports:
+                  - containerPort: 443
